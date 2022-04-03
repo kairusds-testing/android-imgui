@@ -7,7 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.KeyEvent;
 import java.util.concurrent.LinkedBlockingQueue;
 
-class MainActivity extends NativeActivity{
+public class MainActivity extends NativeActivity{
 
 	private InputMethodManager inputMethodManager;
 	// Queue for the Unicode characters to be polled from native code (via pollUnicodeChar())
