@@ -34,4 +34,10 @@ android{
 			path "src/main/cpp/CMakeLists.txt"
 		}
 	}
+
+	lintOptions{
+		abortOnError true
+		ignoreWarnings true
+		disable "ExpiredTargetSdkVersion"
+	}
 }
