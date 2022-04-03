@@ -30,7 +30,7 @@ jobs:
 
     - name: Set environment variables
       run: |
-        echo "APK_PATH=$(find app/build/outputs/apk/release/*.apk)" >> $GITHUB_ENV
+        echo "APK_PATH=$(find app/build/outputs/apk/debug/*.apk)" >> $GITHUB_ENV
         sha=`sha256sum ${{ env.APK_PATH }} | awk '{ print $1 }'`
         echo "APK_SHA256=$sha" >> $GITHUB_ENV
 
