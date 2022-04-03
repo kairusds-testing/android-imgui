@@ -38,8 +38,8 @@ class MainActivity extends NativeActivity{
 	}
 
 	public int pollUnicodeChar(){
-		int x = ((Integer) unicodeCharacterQueue.poll()).intValue();
-		return (x != null) ? x : 0;
+		Integer x = (Integer) unicodeCharacterQueue.poll();
+		return x != null ? x.intValue() : 0;
 	}
 
 }
