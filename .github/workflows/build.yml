@@ -1,0 +1,50 @@
+name: Create Release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: "temurin"
+        java-version: 11
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build APK
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: build
+
+    - name: Set environment variables
+      run: |
+        echo "APK_PATH=$(find app/build/outputs/apk/release/*.apk)" >> $GITHUB_ENV
+        sha=`sha256sum ${{ env.APK_PATH }} | awk '{ print $1 }'`
+        echo "APK_SHA256=$sha" >> $GITHUB_ENV
+
+    - name: Get apk info
+      id: apk-info
+      uses: hkusu/apk-info-action@v1
+      with:
+        apk-path: ${{ env.APK_PATH }}
+
+    - name: Upload APK to a release
+      uses: softprops/action-gh-release@v1
+      with:
+        body: |
+          APK SHA-256 Checksum: ${{ env.APK_SHA256 }}
+          ${{ github.event.head_commit.message }}
+        files: ${{ env.APK_PATH }}
+        tag_name: "${{ github.run_number }}_v${{ steps.apk-info.outputs.version-name }}"

@@ -1,0 +1,3 @@
+[submodule "app/src/main/cpp/imgui"]
+	path = app/src/main/cpp/imgui
+	url = git@github.com:ocornut/imgui.git

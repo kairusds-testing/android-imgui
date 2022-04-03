@@ -1,0 +1,14 @@
+buildscript {
+	repositories {
+		google()
+	}
+	dependencies {
+		classpath "com.android.tools.build:gradle:7.1.2"
+	}
+}
+
+allprojects {
+	repositories {
+		google()
+	}
+}
