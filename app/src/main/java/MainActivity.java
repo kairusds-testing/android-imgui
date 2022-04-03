@@ -39,7 +39,7 @@ class MainActivity extends NativeActivity{
 
 	public int pollUnicodeChar(){
 		int x = unicodeCharacterQueue.poll().intValue();
-		return x != null ? x : 0;
+		return x ? x : 0;
 	}
 
 }
